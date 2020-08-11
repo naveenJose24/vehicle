@@ -15,19 +15,23 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search Feature"),
+        backgroundColor: Colors.black,
+        title: Text(
+          "Register Book",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-      body: ListView(
-        children: <Widget>[
-          RaisedButton(
-            child: Text("using cloud firestore"),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                return CloudFirestoreSearch();
-              }));
-            },
-          ),
-        ],
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: CloudFirestoreSearch(),
+        // child: RaisedButton(
+        //   child: Text("Click to search"),
+        //   onPressed: () {
+        //     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+        //       return CloudFirestoreSearch();
+        //     }));
+        //   },
+        // ),
       ),
     );
   }

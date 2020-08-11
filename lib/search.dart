@@ -7,35 +7,37 @@ class CloudFirestoreSearch extends StatefulWidget {
 }
 
 class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
-  String name = "";
+  String registerno = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        backgroundColor: Colors.black,
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back_ios),
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        // ),
         title: Card(
           child: TextField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search), hintText: 'Search...'),
+                prefixIcon: Icon(Icons.search),
+                hintText: 'Enter  Register No KL57A4290'),
             onChanged: (val) {
               setState(() {
-                name = val;
+                registerno = val;
               });
             },
           ),
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: (name != "" && name != null)
+        stream: (registerno != "" && registerno != null)
             ? Firestore.instance
                 .collection('items')
-                .where("searchKeywords", arrayContains: name)
+                .where("searchKeywords", arrayContains: registerno)
                 .snapshots()
             : Firestore.instance.collection("items").snapshots(),
         builder: (context, snapshot) {
@@ -46,27 +48,113 @@ class _CloudFirestoreSearchState extends State<CloudFirestoreSearch> {
                   itemBuilder: (context, index) {
                     DocumentSnapshot data = snapshot.data.documents[index];
                     return Card(
-                      child: Row(
-                        children: <Widget>[
-                          Image.network(
-                            data['imageUrl'],
-                            width: 150,
-                            height: 100,
-                            fit: BoxFit.fill,
+                        margin: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              Text(
+                                data['name'],
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              SizedBox(height: 6.0),
+                              Text(
+                                data['registerno'],
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                              SizedBox(height: 6.0),
+                              Row(
+                                children: [
+                                  Text('City:'),
+                                  Text(
+                                    data['city'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text('State:'),
+                                  Text(
+                                    data['state'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text('chassis no:'),
+                                  Text(
+                                    data['chassisno'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text('Color:'),
+                                  Text(
+                                    data['color'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text('Variant:'),
+                                  Text(
+                                    data['variant'],
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          Text(
-                            data['name'],
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                        ));
+                    // return Card(
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       Image.network(
+                    //         data['imageUrl'],
+                    //         width: 150,
+                    //         height: 100,
+                    //         fit: BoxFit.fill,
+                    //       ),
+                    //       SizedBox(
+                    //         width: 25,
+                    //       ),
+                    //       Text(
+                    //         data['name'],
+                    //         style: TextStyle(
+                    //           fontWeight: FontWeight.w700,
+                    //           fontSize: 20,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // );
                   },
                 );
         },
