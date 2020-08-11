@@ -24,14 +24,7 @@ class App extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(20),
         child: CloudFirestoreSearch(),
-        // child: RaisedButton(
-        //   child: Text("Click to search"),
-        //   onPressed: () {
-        //     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-        //       return CloudFirestoreSearch();
-        //     }));
-        //   },
-        // ),
+        
       ),
     );
   }
